@@ -200,6 +200,8 @@ Next I combined columns "OUTAGE.START.DATE" and "OUTAGE.START.TIME" into a singl
 
 #### Cleaned DataFrame
 
+<div style="overflow-x: auto; white-space: nowrap; border: 0px solid #ccc; padding: 10px;">
+
 | OUTAGE.START        | OUTAGE.RESTORATION   |   YEAR |   MONTH | U.S._STATE   | POSTAL.CODE   | NERC.REGION   | CLIMATE.REGION     |   OUTAGE.DURATION |   CUSTOMERS.AFFECTED |   DEMAND.LOSS.MW |   POPULATION |   POPPCT_URBAN |   POPDEN_URBAN |   POPDEN_RURAL |   RES.PRICE |   COM.PRICE |   IND.PRICE |   TOTAL.PRICE |   RES.SALES |   COM.SALES |   IND.SALES |   TOTAL.SALES |
 |:--------------------|:---------------------|-------:|--------:|:-------------|:--------------|:--------------|:-------------------|------------------:|---------------------:|-----------------:|-------------:|---------------:|---------------:|---------------:|------------:|------------:|------------:|--------------:|------------:|------------:|------------:|--------------:|
 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |   2011 |       7 | Minnesota    | MN            | MRO           | East North Central |              3060 |                70000 |              nan |  5.34812e+06 |          73.27 |           2279 |           18.2 |       11.6  |        9.18 |        6.81 |          9.28 | 2.33292e+06 | 2.11477e+06 | 2.11329e+06 |   6.56252e+06 |
@@ -207,3 +209,13 @@ Next I combined columns "OUTAGE.START.DATE" and "OUTAGE.START.TIME" into a singl
 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |   2010 |      10 | Minnesota    | MN            | MRO           | East North Central |              3000 |                70000 |              nan |  5.3109e+06  |          73.27 |           2279 |           18.2 |       10.87 |        8.19 |        6.07 |          8.15 | 1.46729e+06 | 1.80168e+06 | 1.9513e+06  |   5.22212e+06 |
 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |   2012 |       6 | Minnesota    | MN            | MRO           | East North Central |              2550 |                68200 |              nan |  5.38044e+06 |          73.27 |           2279 |           18.2 |       11.79 |        9.25 |        6.71 |          9.19 | 1.85152e+06 | 1.94117e+06 | 1.99303e+06 |   5.78706e+06 |
 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |   2015 |       7 | Minnesota    | MN            | MRO           | East North Central |              1740 |               250000 |              250 |  5.48959e+06 |          73.27 |           2279 |           18.2 |       13.07 |       10.16 |        7.74 |         10.43 | 2.02888e+06 | 2.16161e+06 | 1.77794e+06 |   5.97034e+06 |
+</div>
+
+### Outage Duration Distribution
+
+<iframe
+  src="assets/html/duration_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
