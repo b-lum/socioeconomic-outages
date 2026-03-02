@@ -367,3 +367,16 @@ Next, I combined the "OUTAGE.START.DATE" and "OUTAGE.START.TIME" columns into a 
   height="600"
   frameborder="0"
 ></iframe>
+
+The distribution of OUTAGE.DURATION is right skewed. It has a max of 108653, minimum of 0, and a mean of roughly 2625.40.
+
+### Customers Affected Distribution
+
+<iframe
+  src="assets/html/cust_affect.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The distribution of the amount of customers affected for each outage looks right skewed. It has a mean of 143456.22, minimum of 0, and a max of 3241437.0.
