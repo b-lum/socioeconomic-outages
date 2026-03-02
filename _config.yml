@@ -1,4 +1,10 @@
-title: My Power Outage Analysis
+title: Socioeconomic and Infrastructure Factors in U.S. Power Outages
+
+header_pages:
+  - title: "Github"
+    url: "https://github.com/username/repo"
+
 remote_theme: pages-themes/midnight@v0.2.0
+
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-remote-theme
