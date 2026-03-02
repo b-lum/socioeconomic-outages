@@ -84,6 +84,7 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 
 <h3>Target Variable:</h3>
 <sub>What we will eventually be predicting.</sub>
+
 <table>
   <thead>
     <tr>
