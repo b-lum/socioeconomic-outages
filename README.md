@@ -200,16 +200,163 @@ Next, I combined the "OUTAGE.START.DATE" and "OUTAGE.START.TIME" columns into a 
 
 #### Cleaned DataFrame
 
-<div style="overflow-x: auto; white-space: nowrap; border: 0px solid #ccc; padding: 10px;">
-
-| OUTAGE.START        | OUTAGE.RESTORATION   |   YEAR |   MONTH | U.S._STATE   | POSTAL.CODE   | NERC.REGION   | CLIMATE.REGION     |   OUTAGE.DURATION |   CUSTOMERS.AFFECTED |   DEMAND.LOSS.MW |   POPULATION |   POPPCT_URBAN |   POPDEN_URBAN |   POPDEN_RURAL |   RES.PRICE |   COM.PRICE |   IND.PRICE |   TOTAL.PRICE |   RES.SALES |   COM.SALES |   IND.SALES |   TOTAL.SALES |
-|:--------------------|:---------------------|-------:|--------:|:-------------|:--------------|:--------------|:-------------------|------------------:|---------------------:|-----------------:|-------------:|---------------:|---------------:|---------------:|------------:|------------:|------------:|--------------:|------------:|------------:|------------:|--------------:|
-| 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |   2011 |       7 | Minnesota    | MN            | MRO           | East North Central |              3060 |                70000 |              nan |  5.34812e+06 |          73.27 |           2279 |           18.2 |       11.6  |        9.18 |        6.81 |          9.28 | 2.33292e+06 | 2.11477e+06 | 2.11329e+06 |   6.56252e+06 |
-| 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |   2014 |       5 | Minnesota    | MN            | MRO           | East North Central |                 1 |                  nan |              nan |  5.45712e+06 |          73.27 |           2279 |           18.2 |       12.12 |        9.71 |        6.49 |          9.28 | 1.58699e+06 | 1.80776e+06 | 1.88793e+06 |   5.28423e+06 |
-| 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |   2010 |      10 | Minnesota    | MN            | MRO           | East North Central |              3000 |                70000 |              nan |  5.3109e+06  |          73.27 |           2279 |           18.2 |       10.87 |        8.19 |        6.07 |          8.15 | 1.46729e+06 | 1.80168e+06 | 1.9513e+06  |   5.22212e+06 |
-| 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |   2012 |       6 | Minnesota    | MN            | MRO           | East North Central |              2550 |                68200 |              nan |  5.38044e+06 |          73.27 |           2279 |           18.2 |       11.79 |        9.25 |        6.71 |          9.19 | 1.85152e+06 | 1.94117e+06 | 1.99303e+06 |   5.78706e+06 |
-| 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |   2015 |       7 | Minnesota    | MN            | MRO           | East North Central |              1740 |               250000 |              250 |  5.48959e+06 |          73.27 |           2279 |           18.2 |       13.07 |       10.16 |        7.74 |         10.43 | 2.02888e+06 | 2.16161e+06 | 1.77794e+06 |   5.97034e+06 |
-
+<div style="overflow-x: auto; border: 0px; padding: 10px;">
+  <table border="0" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>OUTAGE.START</th>
+        <th>OUTAGE.RESTORATION</th>
+        <th>YEAR</th>
+        <th>MONTH</th>
+        <th>U.S._STATE</th>
+        <th>POSTAL.CODE</th>
+        <th>NERC.REGION</th>
+        <th>CLIMATE.REGION</th>
+        <th>OUTAGE.DURATION</th>
+        <th>CUSTOMERS.AFFECTED</th>
+        <th>DEMAND.LOSS.MW</th>
+        <th>POPULATION</th>
+        <th>POPPCT_URBAN</th>
+        <th>POPDEN_URBAN</th>
+        <th>POPDEN_RURAL</th>
+        <th>RES.PRICE</th>
+        <th>COM.PRICE</th>
+        <th>IND.PRICE</th>
+        <th>TOTAL.PRICE</th>
+        <th>RES.SALES</th>
+        <th>COM.SALES</th>
+        <th>IND.SALES</th>
+        <th>TOTAL.SALES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2011-07-01 17:00:00</td>
+        <td>2011-07-03 20:00:00</td>
+        <td>2011</td>
+        <td>7</td>
+        <td>Minnesota</td>
+        <td>MN</td>
+        <td>MRO</td>
+        <td>East North Central</td>
+        <td>3060</td>
+        <td>70000</td>
+        <td>nan</td>
+        <td>5.34812e+06</td>
+        <td>73.27</td>
+        <td>2279</td>
+        <td>18.2</td>
+        <td>11.6</td>
+        <td>9.18</td>
+        <td>6.81</td>
+        <td>9.28</td>
+        <td>2.33292e+06</td>
+        <td>2.11477e+06</td>
+        <td>2.11329e+06</td>
+        <td>6.56252e+06</td>
+      </tr>
+      <tr>
+        <td>2014-05-11 18:38:00</td>
+        <td>2014-05-11 18:39:00</td>
+        <td>2014</td>
+        <td>5</td>
+        <td>Minnesota</td>
+        <td>MN</td>
+        <td>MRO</td>
+        <td>East North Central</td>
+        <td>1</td>
+        <td>nan</td>
+        <td>nan</td>
+        <td>5.45712e+06</td>
+        <td>73.27</td>
+        <td>2279</td>
+        <td>18.2</td>
+        <td>12.12</td>
+        <td>9.71</td>
+        <td>6.49</td>
+        <td>9.28</td>
+        <td>1.58699e+06</td>
+        <td>1.80776e+06</td>
+        <td>1.88793e+06</td>
+        <td>5.28423e+06</td>
+      </tr>
+      <tr>
+        <td>2010-10-26 20:00:00</td>
+        <td>2010-10-28 22:00:00</td>
+        <td>2010</td>
+        <td>10</td>
+        <td>Minnesota</td>
+        <td>MN</td>
+        <td>MRO</td>
+        <td>East North Central</td>
+        <td>3000</td>
+        <td>70000</td>
+        <td>nan</td>
+        <td>5.3109e+06</td>
+        <td>73.27</td>
+        <td>2279</td>
+        <td>18.2</td>
+        <td>10.87</td>
+        <td>8.19</td>
+        <td>6.07</td>
+        <td>8.15</td>
+        <td>1.46729e+06</td>
+        <td>1.80168e+06</td>
+        <td>1.9513e+06</td>
+        <td>5.22212e+06</td>
+      </tr>
+      <tr>
+        <td>2012-06-19 04:30:00</td>
+        <td>2012-06-20 23:00:00</td>
+        <td>2012</td>
+        <td>6</td>
+        <td>Minnesota</td>
+        <td>MN</td>
+        <td>MRO</td>
+        <td>East North Central</td>
+        <td>2550</td>
+        <td>68200</td>
+        <td>nan</td>
+        <td>5.38044e+06</td>
+        <td>73.27</td>
+        <td>2279</td>
+        <td>18.2</td>
+        <td>11.79</td>
+        <td>9.25</td>
+        <td>6.71</td>
+        <td>9.19</td>
+        <td>1.85152e+06</td>
+        <td>1.94117e+06</td>
+        <td>1.99303e+06</td>
+        <td>5.78706e+06</td>
+      </tr>
+      <tr>
+        <td>2015-07-18 02:00:00</td>
+        <td>2015-07-19 07:00:00</td>
+        <td>2015</td>
+        <td>7</td>
+        <td>Minnesota</td>
+        <td>MN</td>
+        <td>MRO</td>
+        <td>East North Central</td>
+        <td>1740</td>
+        <td>250000</td>
+        <td>250</td>
+        <td>5.48959e+06</td>
+        <td>73.27</td>
+        <td>2279</td>
+        <td>18.2</td>
+        <td>13.07</td>
+        <td>10.16</td>
+        <td>7.74</td>
+        <td>10.43</td>
+        <td>2.02888e+06</td>
+        <td>2.16161e+06</td>
+        <td>1.77794e+06</td>
+        <td>5.97034e+06</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 ### Outage Duration Distribution
