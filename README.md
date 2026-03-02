@@ -194,9 +194,9 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 
 ## Data Cleaning & Exploratory Data Analysis
 
-I first dropped the column called "variables" which contained information describing each  column variable header because it was unecessary and made data analysis harder. I did the same with row at index 0 which contained unit descriptions of the column header directly above it. 
+I began by removing the column named "variables", which contained metadata describing each column header, as it was unnecessary and complicated the analysis. I also dropped the first row at index 0, which contained unit descriptions for the columns, since this information was redundant.
 
-Next I combined columns "OUTAGE.START.DATE" and "OUTAGE.START.TIME" into a single column "OUTAGE.START" containing pandas datetime objects with calender dates and timestamps of when the outage started. I did the same with features "OUTAGE.RESTORATION.TIME" with "OUTAGE.RESTORATION.DATE" into a single feature "OUTAGE.RESTORATION". 
+Next, I combined the "OUTAGE.START.DATE" and "OUTAGE.START.TIME" columns into a single "OUTAGE.START" column, represented as pandas datetime objects containing both the calendar date and timestamp for when the outage began. Similarly, I merged "OUTAGE.RESTORATION.DATE" and "OUTAGE.RESTORATION.TIME" into a single "OUTAGE.RESTORATION" column. These steps created clean, standardized timestamp features for subsequent analysis.
 
 #### Cleaned DataFrame
 
@@ -209,6 +209,7 @@ Next I combined columns "OUTAGE.START.DATE" and "OUTAGE.START.TIME" into a singl
 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |   2010 |      10 | Minnesota    | MN            | MRO           | East North Central |              3000 |                70000 |              nan |  5.3109e+06  |          73.27 |           2279 |           18.2 |       10.87 |        8.19 |        6.07 |          8.15 | 1.46729e+06 | 1.80168e+06 | 1.9513e+06  |   5.22212e+06 |
 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |   2012 |       6 | Minnesota    | MN            | MRO           | East North Central |              2550 |                68200 |              nan |  5.38044e+06 |          73.27 |           2279 |           18.2 |       11.79 |        9.25 |        6.71 |          9.19 | 1.85152e+06 | 1.94117e+06 | 1.99303e+06 |   5.78706e+06 |
 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |   2015 |       7 | Minnesota    | MN            | MRO           | East North Central |              1740 |               250000 |              250 |  5.48959e+06 |          73.27 |           2279 |           18.2 |       13.07 |       10.16 |        7.74 |         10.43 | 2.02888e+06 | 2.16161e+06 | 1.77794e+06 |   5.97034e+06 |
+
 </div>
 
 ### Outage Duration Distribution
