@@ -26,6 +26,7 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 
 
 ### Temporal Features:
+
 | Column Name        | Description                                      |
 | ------------------ | ------------------------------------------------ |
 | OUTAGE.START       | Timestamp indicating when the power outage began |
@@ -36,6 +37,7 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 <sub>OUTAGE.START and OUTAGE.RESTORATION are engineered timestamp features created by combining the original date and time columns (OUTAGE.START.DATE with OUTAGE.START.TIME, and OUTAGE.RESTORATION.DATE with OUTAGE.RESTORATION.TIME).</sub>
 
 ### Geographic & Regional Features
+
 | Column Name    | Description                                            |
 | -------------- | ------------------------------------------------------ |
 | U.S._STATE     | U.S. state where the outage occurred                   |
@@ -45,18 +47,21 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 
 
 ### Target Variable
+
 <sub>What we will eventually be predicting.</sub>
 | Column Name     | Description                                           |
 | --------------- | ----------------------------------------------------- |
 | OUTAGE.DURATION | Duration of the outage in minutes                     |
 
 ### Outage Severity Features
+
 | Column Name        | Description                                            |
 | ------------------ | ------------------------------------------------------ |
 | CUSTOMERS.AFFECTED | Number of customers impacted by the outage             |
 | DEMAND.LOSS.MW     | Megawatts of electricity demand lost during the outage |
 
 ### Socioeconomic & Urbanization Features
+
 | Column Name  | Description                                        |
 | ------------ | -------------------------------------------------- |
 | POPULATION   | Total population of the state                      |
@@ -66,6 +71,7 @@ Do socioeconomic and infrastructure factors significantly influence power outage
 
 
 ### Infastructure & Energy Market Features
+
 | Column Name | Description                           |
 | ----------- | ------------------------------------- |
 | RES.PRICE   | Average residential electricity price (cents / kilowatt-hour)|
