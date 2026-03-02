@@ -191,3 +191,5 @@ Do socioeconomic and infrastructure factors significantly influence power outage
     </tr>
   </tbody>
 </table>
+
+## Data Cleaning & Exploratory Data Analysis

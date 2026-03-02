@@ -1,9 +1,5 @@
 title: Socioeconomic and Infrastructure Factors in U.S. Power Outages
 
-header_pages:
-  - title: "Github"
-    url: "https://github.com/username/repo"
-
 remote_theme: pages-themes/midnight@v0.2.0
 
 plugins:
