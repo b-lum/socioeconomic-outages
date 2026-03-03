@@ -437,7 +437,7 @@ There is a weak negative correlation between Outage Duration and Population Perc
 <iframe
   src="assets/html/NERC_TP.html"
   width="800"
-  height="450"
+  height="800"
   frameborder="0"
 ></iframe>
 
