@@ -684,3 +684,7 @@ R-squared: 0.086 indicating 8.6% of variabiity in outage duration can be explain
 Our individual t-test significant columns are:
 CUSTOMERS.AFFECTED, POPDEN_URBAN, POPDEN_RURAL, RES.SALES,
 </pre>
+
+## Framing a Prediction Problem
+
+We will try to create a model too predict OUTAGE.DURATION (duration of power outages in minutes) as regression. Our response variable will be OUTAGE.DURATION, and we've chosen so because it's a good indicator of both severity and impact of an outage. It was also the focus of our hypothesis test. The features we will use will primarily focus on the features proven to show significant assocaition with outage duration in step 4 (CUSTOMERS.AFFECTED, POPDEN_URBAN, POPDEN_RURAL, RES.SALES), and also explore related features such as RES.PRICE, COM.PRICE, IND.PRICE (residential, commerical, industry electricity prices in cent/kilowatt-hour) and RES.SALES, COM.SALES, and IND.SALES (residential, commerical, industry sales by sector). We will use these features because their inforation will have been readily available at time of an outage, or can be reasonably estimated from public data. Our evaluation metric will be Root Mean Square Error (RMSE) and R^2. RMSE will allow us to compare the performance of different iterations of our model, and will provide us a measure of the aveerage prediction error in minutes helping us understand how closely our model's predictions match the actual measurements. R^2 will measure the proportion of variance that can be explained by our model.
