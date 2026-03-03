@@ -381,6 +381,8 @@ The distribution of OUTAGE.DURATION is right skewed. It has a max of 108653, min
 ></iframe>
 The distribution of the amount of customers affected for each outage looks right skewed. It has a mean of 143456.22, minimum of 0, and a max of 3241437.0.
 
+### Customers Affected and Outage Duration Scaterplot
+
 <iframe
   src="assets/html/OD_CA.html"
   width="800"
@@ -388,4 +390,15 @@ The distribution of the amount of customers affected for each outage looks right
   frameborder="0"
 ></iframe>
 
-It looks there is a moderate positive correlation between outage duration and customers affected. The spearman coefficient is 0.5707358831110576. We use the spearman coefficient because the data is right skewed
+There is a moderate positive correlation between outage duration and customers affected. The spearman coefficient is 0.5707. We use the spearman coefficient because the data appears right skewed.
+
+### Outage Duration and Total Price Scatterplot
+
+<iframe
+  src="assets/html/OD_TP.html"
+  width="800"
+  height="450"
+  frameborder="0"
+></iframe>
+
+There is a weak negative correlation between total price and outage duration. Spearman's coefficient came out to -0.2249. That is the higher the total price which is the average among RES.PRICE (price for residential customers), COM.PRICE (price for commerical customers), and IND.PRICE (price for industrial customers). So it looks like theres a chance that the higher you pay, the lower your outage duration will be.
