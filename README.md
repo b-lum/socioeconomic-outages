@@ -606,3 +606,81 @@ That said, we cannot rule out Missing Not At Random (MNAR), because it is still 
   height="900"
   frameborder="0"
 ></iframe>
+
+## Hypothesis Testing
+
+Nul Hypothesisl:
+Customers affected, percent urban population, urban population density, rural population density, residential electricity price, commercial electricity price, industrial electricity price, and residential, commercial, and industrial electricity sales have no association with outage duration.
+
+Alternative Hypothesis:
+At least one of these factors is associated with outage duration.
+
+Test Statistic:
+Multiple Regression Model's overall F-test
+
+```python
+X = df[
+   ['CUSTOMERS.AFFECTED', 
+    'POPPCT_URBAN', 
+    'POPDEN_URBAN', 
+    'POPDEN_RURAL', 
+    'RES.PRICE', 
+    'COM.PRICE', 
+    'IND.PRICE', 
+    'RES.SALES', 
+    'COM.SALES', 
+    'IND.SALES']
+    ] 
+y = df['OUTAGE.DURATION'] 
+X = sm.add_constant(X) 
+model = sm.OLS(y, X, missing='drop').fit() 
+print(model.summary())
+```
+<pre>
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:        OUTAGE.DURATION   R-squared:                       0.086
+Model:                            OLS   Adj. R-squared:                  0.077
+Method:                 Least Squares   F-statistic:                     9.680
+Date:                Tue, 03 Mar 2026   Prob (F-statistic):           1.44e-15
+Time:                        10:39:43   Log-Likelihood:                -10145.
+No. Observations:                1038   AIC:                         2.031e+04
+Df Residuals:                    1027   BIC:                         2.037e+04
+Df Model:                          10                                         
+Covariance Type:            nonrobust                                         
+======================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const               3836.8563   1261.036      3.043      0.002    1362.355    6311.357
+CUSTOMERS.AFFECTED     0.0038      0.000      8.200      0.000       0.003       0.005
+POPPCT_URBAN         -50.4151     21.105     -2.389      0.017     -91.829      -9.001
+POPDEN_URBAN           1.2325      0.476      2.587      0.010       0.298       2.167
+POPDEN_RURAL          21.6319      6.209      3.484      0.001       9.448      33.816
+RES.PRICE           -185.7172    116.226     -1.598      0.110    -413.785      42.351
+COM.PRICE            157.8475    168.484      0.937      0.349    -172.764     488.459
+IND.PRICE           -135.2551    124.524     -1.086      0.278    -379.606     109.096
+RES.SALES              0.0003      0.000      2.056      0.040    1.35e-05       0.001
+COM.SALES             -0.0003      0.000     -1.838      0.066      -0.001    2.32e-05
+IND.SALES              0.0001      0.000      1.188      0.235   -8.01e-05       0.000
+==============================================================================
+Omnibus:                      962.004   Durbin-Watson:                   1.773
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            46766.076
+Skew:                           4.141   Prob(JB):                         0.00
+Kurtosis:                      34.823   Cond. No.                     8.11e+07
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 8.11e+07. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+
+<pre>
+We reject the null hypothesis: 
+F-statistic is 9.680, 
+p-value (Prob (F-statistic)): 1.44e-15
+R-squared: 0.086 indicating 8.6% of variabiity in outage duration can be explained by predictors
+
+Our individual t-test significant columns are:
+CUSTOMERS.AFFECTED, POPDEN_URBAN, POPDEN_RURAL, RES.SALES,
+</pre>
