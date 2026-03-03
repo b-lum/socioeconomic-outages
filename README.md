@@ -359,8 +359,9 @@ Next, I combined the "OUTAGE.START.DATE" and "OUTAGE.START.TIME" columns into a 
   </table>
 </div>
 
+### Univariate Analysis
 
-### Outage Duration Distribution
+#### Outage Duration Distribution
 
 <iframe
   src="assets/html/duration_dist.html"
@@ -371,7 +372,7 @@ Next, I combined the "OUTAGE.START.DATE" and "OUTAGE.START.TIME" columns into a 
 
 The distribution of OUTAGE.DURATION is right skewed. It has a max of 108653, minimum of 0, and a mean of roughly 2625.40.
 
-### Customers Affected Distribution
+#### Customers Affected Distribution
 
 <iframe
   src="assets/html/cust_affect.html"
@@ -381,7 +382,9 @@ The distribution of OUTAGE.DURATION is right skewed. It has a max of 108653, min
 ></iframe>
 The distribution of the amount of customers affected for each outage looks right skewed. It has a mean of 143456.22, minimum of 0, and a max of 3241437.0.
 
-### Customers Affected and Outage Duration Scaterplot
+### Bivariate Analysis
+
+#### Customers Affected and Outage Duration Scaterplot
 
 <iframe
   src="assets/html/OD_CA.html"
@@ -392,7 +395,7 @@ The distribution of the amount of customers affected for each outage looks right
 
 There is a moderate positive correlation between outage duration and customers affected. The spearman coefficient is 0.5707. We use the spearman coefficient because the data appears right skewed.
 
-### Outage Duration and Total Price Scatterplot
+#### Outage Duration and Total Price Scatterplot
 
 <iframe
   src="assets/html/OD_TP.html"
@@ -402,3 +405,38 @@ There is a moderate positive correlation between outage duration and customers a
 ></iframe>
 
 There is a weak negative correlation between total price and outage duration. Spearman's coefficient came out to -0.2249. That is the higher the total price which is the average among RES.PRICE (price for residential customers), COM.PRICE (price for commerical customers), and IND.PRICE (price for industrial customers). So it looks like theres a chance that the higher you pay, the lower your outage duration will be.
+
+#### Outage Duration and Residential Price Scatterplot
+
+<iframe
+  src="assets/html/OD_RP.html"
+  width="800"
+  height="450"
+  frameborder="0"
+></iframe>
+
+In line with total price, there is a weak negative correlation between Outage Duration and Residential Price. The Spearman correlation coefficient comes out to about the same as Outage Duration with Total Price, at roughly -0.2250.
+
+#### Outage Duration and Population Percent Urban
+
+<iframe
+  src="assets/html/OD_PCTURB.html"
+  width="800"
+  height="450"
+  frameborder="0"
+></iframe>
+
+There is a weak negative correlation between Outage Duration and Population Percent Urban. That is theres a likelihood that more urban regions benefit from shorter outages, whether from better infastructure or prioritization. In addition, the correlation may be weak because it is also harder to service urban areas due to interlocking grids, more complicated infastructure, etc. The Spearman coefficient comes out to about -0.1048.
+
+### Interesting Aggregates
+
+#### Total Price and Outage Duration by NERC Regions
+
+> Note: Certain regions are missing start date times for outages so some plots will be more sparse. The absence of this is also significant.
+
+<iframe
+  src="assets/html/NERC_TP.html"
+  width="800"
+  height="450"
+  frameborder="0"
+></iframe>
