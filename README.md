@@ -571,6 +571,7 @@ for numeric_col in numeric_cols :
 
 print(missing_res)
 ```
+#### Output
 <pre>
 {'YEAR': (-0.24941594243523468, 0.6363363663633637),
  'MONTH': (-0.5377468060394888, 9.999000099990002e-05),
@@ -590,3 +591,18 @@ print(missing_res)
  'IND.SALES': (272345.3487021858, 9.999000099990002e-05),
  'TOTAL.SALES': (738758.5939207654, 9.999000099990002e-05)}
 </pre>
+
+The missingness of OUTAGE.DURATION appears to be significantly associated with several observed variables, including CUSTOMERS.AFFECTED, MONTH, and multiple electricity price and sales measurements. However, it does not appear to depend on demographic variables such as POPULATION or POPPCT_URBAN.
+
+These results suggest  missingness is likely Missing At Random (MAR), since whether outage duration is missing depends on other observed features in the dataset. The data therefore do not appear to be Missing Completely At Random (MCAR).
+
+That said, we cannot rule out Missing Not At Random (MNAR), because it is still possible that the probability of missingness depends on the true (unobserved) outage duration values themselves — something that cannot be directly tested with the available data.
+
+#### Customers Affected by OUTAGE.DURATION Missingness
+
+<iframe
+  src="assets/html/CA_OD_MISS.html"
+  width="800"
+  height="900"
+  frameborder="0"
+></iframe>
