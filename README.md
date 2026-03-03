@@ -534,3 +534,57 @@ Many regions appear to have some positive correlation from the eye test, such NP
   </tbody>
 </table>
 </div>
+
+## Assessment of Missingness
+
+### MNAR Analysis
+
+I think the OUTAGE.DURATION column is MNAR. My reasoning for this is that missingnes might depend on the actual length of outages. An example of this is that companies with longer outages might be less likely to report them. While factor such as customers affected or customer type might account for some discrepancy, the dependence on the value itself suggests MNAR.
+
+```python
+# testing if missingness depends on other columns
+def permutation_test_missingness(df, missing_col, test_col, N=10000):
+
+   obs_stat = df.loc[df[missing_col] == 1, test_col].mean() - df.loc[df[missing_col] == 0, test_col].mean()
+    
+   p_values = []
+   values = df[test_col].to_numpy() 
+   mask = df[missing_col].to_numpy() == 1
+    
+   for _ in range(N) :
+      shuffled = np.random.permutation(values)
+      p_values.append(shuffled[mask].mean() - shuffled[~mask].mean())
+    
+   p_values = np.array(p_values)
+   p_value = (np.sum(np.abs(p_values) >= np.abs(obs_stat)) + 1) / (N + 1)
+    
+   return obs_stat, p_value
+
+
+# testing on only the numeric columns
+numeric_cols = numeric_df.columns.tolist()
+
+missing_res = {}
+
+for numeric_col in numeric_cols :
+   missing_res[numeric_col] = permutation_test_missingness(df, "OUTAGE.DURATION.MISSING", numeric_col)
+
+print(missing_res)
+```
+{'YEAR': (-0.24941594243523468, 0.6363363663633637),
+ 'MONTH': (-0.5377468060394888, 9.999000099990002e-05),
+ 'OUTAGE.DURATION': (nan, 9.999000099990002e-05),
+ 'CUSTOMERS.AFFECTED': (-20599.732900432893, 9.999000099990002e-05),
+ 'DEMAND.LOSS.MW': (-235.83925373134326, 9.999000099990002e-05),
+ 'POPULATION': (1232916.8633538932, 0.42725727427257276),
+ 'POPPCT_URBAN': (0.5656543780954877, 0.7227277272272773),
+ 'POPDEN_URBAN': (85.61378375852837, 0.5548445155484452),
+ 'POPDEN_RURAL': (-12.103071929246838, 9.999000099990002e-05),
+ 'RES.PRICE': (-0.08158811475409955, 9.999000099990002e-05),
+ 'COM.PRICE': (0.03932035519125776, 9.999000099990002e-05),
+ 'IND.PRICE': (-0.10974385245901708, 9.999000099990002e-05),
+ 'TOTAL.PRICE': (-0.1156898907103816, 9.999000099990002e-05),
+ 'RES.SALES': (-64529.97916666698, 9.999000099990002e-05),
+ 'COM.SALES': (477396.71413934417, 9.999000099990002e-05),
+ 'IND.SALES': (272345.3487021858, 9.999000099990002e-05),
+ 'TOTAL.SALES': (738758.5939207654, 9.999000099990002e-05)}
