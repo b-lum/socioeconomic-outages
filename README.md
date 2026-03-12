@@ -861,7 +861,7 @@ abs(Urban_RMSE - Rural_RMSE)
 Using a permutation test with a significance level of α = 0.05 and 1,000 permutations, we observed an RMSE difference of 0.0895 between high-urban and low-urban regions. The resulting p-value was 0.771, which is much greater than the significance threshold, so we fail to reject the null hypothesis. This indicates that there is no statistically significant evidence that the model performs differently between high- and low-urban regions, suggesting that the model is fair across these groups.
 
 <iframe
-  src="assets/html/UrbanFairnesPermTest.html"
+  src="assets/html/UrbanFairnessPermTest_plotly.html"
   width="800"
   height="450"
   frameborder="0"
