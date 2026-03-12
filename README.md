@@ -688,3 +688,49 @@ CUSTOMERS.AFFECTED, POPDEN_URBAN, POPDEN_RURAL, RES.SALES,
 ## Framing a Prediction Problem
 
 We will try to create a model too predict OUTAGE.DURATION (duration of power outages in minutes) as regression. Our response variable will be OUTAGE.DURATION, and we've chosen so because it's a good indicator of both severity and impact of an outage. It was also the focus of our hypothesis test. The features we will use will primarily focus on the features proven to show significant assocaition with outage duration in step 4 (CUSTOMERS.AFFECTED, POPDEN_URBAN, POPDEN_RURAL, RES.SALES), and also explore related features such as RES.PRICE, COM.PRICE, IND.PRICE (residential, commerical, industry electricity prices in cent/kilowatt-hour) and RES.SALES, COM.SALES, and IND.SALES (residential, commerical, industry sales by sector). We will use these features because their inforation will have been readily available at time of an outage, or can be reasonably estimated from public data. Our evaluation metric will be Root Mean Square Error (RMSE) and R^2. RMSE will allow us to compare the performance of different iterations of our model, and will provide us a measure of the aveerage prediction error in minutes helping us understand how closely our model's predictions match the actual measurements. R^2 will measure the proportion of variance that can be explained by our model.
+
+## Baseline Model
+
+Using the baseline model, we trained a linear regression to predict outage duration using the associative features identified in Step 4: “CUSTOMERS_AFFECTED”, “POPDEN_URBAN”, “POPDEN_RURAL”, and “RES_SALES”. All features are quantitative; no ordinal or nominal variables were included, so no categorical encoding was necessary. We applied StandardScaler to normalize the features before fitting the model. Using an 80/20 train/test split with a random state of 42, the model achieved a train RMSE of 4,510 minutes and train R² of 0.057, with a test RMSE of 3,549 minutes and test R² of 0.118. These results indicate that the model captures only a small portion of the variance in outage duration, although the close train and test metrics suggest it generalizes reasonably well to unseen data. Overall, while this model provides a simple baseline, its low R² demonstrates limited predictive power, indicating that additional features, transformations, or more flexible models are necessary for improved performance.
+
+Train RMSE: 4510.326097211373
+Train R^2: 0.05691284180884659
+Test RMSE: 3549.493805649714
+Test R^2: 0.1182622982191609
+
+
+## Adjusting and Final Model
+
+We first applied a log transformation to outage duration using log(OUTAGE_DURATION + 1) to reduce right skewness and variance. The model was trained on the transformed target, and predictions were converted back to the original scale for RMSE evaluation. While RMSE slightly increased, R² improved, suggesting that the model better captured proportional relationships in outage duration despite larger absolute errors for extreme outages.
+
+Train RMSE: 14214.516118190224
+Train R^2 (log): 0.07563861173850095
+Test RMSE: 4140.804748135683
+Test R^2 (log): 0.10007924834514981
+
+Next, we incorporated additional socioeconomic and economic features — “CUSTOMERS_AFFECTED”, “POPDEN_URBAN”, “POPDEN_RURAL”, “RES_SALES”, “RES_PRICE”, “COM_PRICE”, and “IND_PRICE” — while keeping the same 80/20 train/test split, random state of 42, and log-transformed target. The increase in R² suggests the model captures more of the variability in outage duration, indicating that these socioeconomic characteristics provide predictive signal beyond the baseline features. Although overall predictive power remains modest, the improvement demonstrates that the additional variables contribute meaningful information and improve generalization.
+
+Train RMSE: 14321.633785592181
+Train R^2 (log): 0.09852395004361203
+Test RMSE: 4111.997880031842
+Test R^2 (log): 0.11216299040878508
+
+We then examined the potential interaction between “POPPCT_URBAN” and “RES_SALES”, hypothesizing that more urban areas likely have higher electricity demand. These features were slightly correlated (correlation coefficient = 0.4). To capture this effect, we created an engineered feature “URBAN_ADJ_SALES”, combining residential sales with the percentage of urban population. Additionally, the heavily skewed “CUSTOMERS_AFFECTED” feature was transformed using a QuantileTransformer, while all other features were standardized with a StandardScaler. Using the same 80/20 train/test split and log transformation on the target, we fitted a linear regression pipeline.
+
+
+
+Train RMSE: 4808.0121679111235
+Train R^2 (log): 0.355413627339931
+Test RMSE: 4041.55852968012
+Test R^2 (log): 0.3257877993694086
+
+The updated model shows that incorporating urbanization-adjusted sales and appropriate preprocessing improves performance: the model explains roughly one-third of the variance in log-transformed outage duration, and the close training and test metrics suggest reasonable generalization without substantial overfitting.
+
+Finally, we trained a Random Forest Regressor on the same features, including “URBAN_ADJ_SALES” and the log-transformed target. Random Forest was chosen because it is well-suited for messy, non-linear data and can automatically capture complex interactions without explicit feature engineering. Unlike linear regression, it is less sensitive to assumptions about linearity or normally distributed residuals, though it is prone to overfitting, which makes evaluation on a held-out test set essential.
+
+Train RMSE: 2983.5593887666564
+Train R^2 (log): 0.906523365519866
+Test RMSE: 3794.2350150051175
+Test R^2 (log): 0.4091224946499109
+
+The Random Forest model fits the training data closely, as indicated by the high train R², while still generalizing reasonably well to unseen data. It captures substantially more variance than the previous linear models, demonstrating the value of a flexible, non-linear algorithm combined with thoughtful feature engineering. 
