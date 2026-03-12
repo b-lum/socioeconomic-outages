@@ -693,7 +693,7 @@ We will try to create a model too predict OUTAGE.DURATION (duration of power out
 
 Using the baseline model, we trained a linear regression to predict outage duration using the associative features identified in Step 4: “CUSTOMERS_AFFECTED”, “POPDEN_URBAN”, “POPDEN_RURAL”, and “RES_SALES”. All features are quantitative; no ordinal or nominal variables were included, so no categorical encoding was necessary. We applied StandardScaler to normalize the features before fitting the model. Using an 80/20 train/test split with a random state of 42, the model achieved a train RMSE of 4,510 minutes and train R² of 0.057, with a test RMSE of 3,549 minutes and test R² of 0.118. These results indicate that the model captures only a small portion of the variance in outage duration, although the close train and test metrics suggest it generalizes reasonably well to unseen data. Overall, while this model provides a simple baseline, its low R² demonstrates limited predictive power, indicating that additional features, transformations, or more flexible models are necessary for improved performance.
 
-<table border="1">
+<table border="0">
   <thead>
     <tr>
       <th></th>
@@ -719,7 +719,7 @@ Using the baseline model, we trained a linear regression to predict outage durat
 
 We first applied a log transformation to outage duration using log(OUTAGE_DURATION + 1) to reduce right skewness and variance. The model was trained on the transformed target, and predictions were converted back to the original scale for RMSE evaluation. While RMSE slightly increased, R² improved, suggesting that the model better captured proportional relationships in outage duration despite larger absolute errors for extreme outages.
 
-<table border="1">
+<table border="0">
   <thead>
     <tr>
       <th></th>
@@ -743,7 +743,7 @@ We first applied a log transformation to outage duration using log(OUTAGE_DURATI
 
 Next, we incorporated additional socioeconomic and economic features — “CUSTOMERS_AFFECTED”, “POPDEN_URBAN”, “POPDEN_RURAL”, “RES_SALES”, “RES_PRICE”, “COM_PRICE”, and “IND_PRICE” — while keeping the same 80/20 train/test split, random state of 42, and log-transformed target. The increase in R² suggests the model captures more of the variability in outage duration, indicating that these socioeconomic characteristics provide predictive signal beyond the baseline features. Although overall predictive power remains modest, the improvement demonstrates that the additional variables contribute meaningful information and improve generalization.
 
-<table border="1">
+<table border="0">
   <thead>
     <tr>
       <th></th>
@@ -768,7 +768,7 @@ Next, we incorporated additional socioeconomic and economic features — “CUST
 We then examined the potential interaction between “POPPCT_URBAN” and “RES_SALES”, hypothesizing that more urban areas likely have higher electricity demand. These features were slightly correlated (correlation coefficient = 0.4). To capture this effect, we created an engineered feature “URBAN_ADJ_SALES”, combining residential sales with the percentage of urban population. Additionally, the heavily skewed “CUSTOMERS_AFFECTED” feature was transformed using a QuantileTransformer, while all other features were standardized with a StandardScaler. Using the same 80/20 train/test split and log transformation on the target, we fitted a linear regression pipeline.
 
 
-<table border="1">
+<table border="0">
   <thead>
     <tr>
       <th></th>
@@ -795,7 +795,7 @@ The updated model shows that incorporating urbanization-adjusted sales and appro
 
 Finally, we trained a Random Forest Regressor on the same features, including “URBAN_ADJ_SALES” and the log-transformed target. Random Forest was chosen because it is well-suited for messy, non-linear data and can automatically capture complex interactions without explicit feature engineering. Unlike linear regression, it is less sensitive to assumptions about linearity or normally distributed residuals, though it is prone to overfitting, which makes evaluation on a held-out test set essential.
 
-<table border="1">
+<table border="0">
   <thead>
     <tr>
       <th></th>
@@ -835,6 +835,33 @@ When checking accuracy and bias, the model appears to generalize well, even for 
 
 <iframe
   src="assets/html/Residuals_vs_Predicted_plotly.html"
+  width="800"
+  height="450"
+  frameborder="0"
+></iframe>
+
+The residuals appear  uniform across the predicted values, with only a slight bump near the middle of the range. This indicates that the model doesn't exhibit strong systematic bias, although the small deviation in the middle suggests a overprediction.
+
+## Fairness Analysis
+
+Group X will be the high-urban regions where the percentage of urban population (POPPCT_URBAN) is above the median, and Group Y as the low-urban regions at or below the median. We choose median because the distirbution of urban percentage is not uniform or normal. We evaluated model performance using Root Mean Squared Error (RMSE) on the test set. 
+
+Our hypothesis and test statistic are as followed:
+
+#### Null Hypothesis:
+The model is fair. The difference in RMSE between high-urban and low-urban regions is due to random chance.
+
+#### Alternative Hypothesis:
+The difference in RMSE between high urban regions and low-urban regions is significant, and indicates the model performs differently between the two groups.
+
+#### Test Statistic:
+abs(Urban_RMSE - Rural_RMSE)
+
+
+Using a permutation test with a significance level of α = 0.05 and 1,000 permutations, we observed an RMSE difference of 0.0895 between high-urban and low-urban regions. The resulting p-value was 0.771, which is much greater than the significance threshold, so we fail to reject the null hypothesis. This indicates that there is no statistically significant evidence that the model performs differently between high- and low-urban regions, suggesting that the model is fair across these groups.
+
+<iframe
+  src="assets/html/UrbanFairnesPermTest.html"
   width="800"
   height="450"
   frameborder="0"
