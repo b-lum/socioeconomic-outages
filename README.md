@@ -609,7 +609,7 @@ That said, we cannot rule out Missing Not At Random (MNAR), because it is still 
 
 ## Hypothesis Testing
 
-Nul Hypothesisl:
+Null Hypothesis:
 Customers affected, percent urban population, urban population density, rural population density, residential electricity price, commercial electricity price, industrial electricity price, and residential, commercial, and industrial electricity sales have no association with outage duration.
 
 Alternative Hypothesis:
